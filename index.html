@@ -182,6 +182,129 @@
     .experience-section .work-card { background: #f7f8f4; }
     .experience-section .card-image { height: 170px; }
 
+    .timeline-section { overflow: hidden; background: #f0eee7; }
+    .timeline-section .section-head { margin-bottom: 36px; }
+    .timeline-scroll {
+      overflow-x: auto;
+      padding: 8px 4px 20px;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-color: #aebdb1 transparent;
+      scrollbar-width: thin;
+      touch-action: pan-x;
+    }
+    .timeline-track {
+      position: relative;
+      display: flex;
+      width: max-content;
+      min-width: 100%;
+      padding-inline: 12px;
+    }
+    .timeline-track::before {
+      position: absolute;
+      top: 50%;
+      right: 12px;
+      left: 12px;
+      height: 2px;
+      background: #c8c9bf;
+      content: "";
+      transform: translateY(-50%);
+    }
+    .timeline-node {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      flex: 0 0 290px;
+      grid-template-rows: 260px 48px 260px;
+      justify-items: center;
+    }
+    .timeline-card {
+      width: calc(100% - 24px);
+      overflow: hidden;
+      border: 1px solid #d6d7ce;
+      background: #fbfaf7;
+      box-shadow: 0 5px 15px rgb(32 35 31 / 5%);
+      transform-origin: center;
+      transition: transform 300ms ease, border-color 300ms ease, box-shadow 300ms ease;
+    }
+    .timeline-node:nth-child(odd) .timeline-card { grid-row: 1; align-self: end; }
+    .timeline-node:nth-child(even) .timeline-card { grid-row: 3; align-self: start; }
+    .timeline-node:hover .timeline-card,
+    .timeline-node:focus-within .timeline-card,
+    .timeline-card:hover {
+      z-index: 2;
+      border-color: #9baa9c;
+      box-shadow: 0 12px 26px rgb(32 35 31 / 12%);
+      transform: scale(1.05);
+    }
+    .timeline-image {
+      display: grid;
+      height: 112px;
+      place-items: center;
+      overflow: hidden;
+      background: #dce7df;
+      color: var(--green);
+      font-family: var(--mono);
+      font-size: 11px;
+      text-align: center;
+    }
+    .timeline-image img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      padding: 18px;
+      color: var(--green);
+      font-size: 11px;
+      object-fit: cover;
+    }
+    .timeline-card-body { padding: 14px 16px 16px; }
+    .timeline-date {
+      margin: 0 0 7px;
+      color: var(--coral);
+      font-family: var(--mono);
+      font-size: 9px;
+      letter-spacing: .8px;
+      text-transform: uppercase;
+    }
+    .timeline-title {
+      margin: 0;
+      font-family: var(--serif);
+      font-size: 17px;
+      font-weight: 500;
+      line-height: 1.3;
+    }
+    .timeline-description { margin: 8px 0 0; color: var(--muted); font-size: 11px; line-height: 1.55; }
+    .timeline-connector {
+      position: relative;
+      grid-row: 2;
+      width: 2px;
+      height: 100%;
+      background: #abb9ad;
+    }
+    .timeline-dot {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 16px;
+      height: 16px;
+      padding: 0;
+      border: 3px solid #f0eee7;
+      border-radius: 50%;
+      background: #94b09c;
+      box-shadow: 0 0 0 1px #94b09c;
+      cursor: pointer;
+      transform: translate(-50%, -50%);
+      transition: background 300ms ease, box-shadow 300ms ease, transform 300ms ease;
+    }
+    .timeline-dot:hover,
+    .timeline-dot:focus-visible,
+    .timeline-dot[aria-pressed="true"] {
+      background: #245c46;
+      box-shadow: 0 0 0 3px rgb(36 92 70 / 22%);
+      transform: translate(-50%, -50%) scale(1.3);
+    }
+    .timeline-dot:focus-visible { outline: 2px solid var(--ink); outline-offset: 4px; }
+    .timeline-node.is-selected .timeline-card { border-color: #9baa9c; }
+
     .awards-list { border-top: 1px solid var(--line); }
     .award {
       display: grid;
@@ -215,6 +338,8 @@
       .section-head { align-items: end; }
       .section-note { display: none; }
       .rail { grid-auto-columns: minmax(250px, 82%); gap: 13px; }
+      .timeline-node { flex-basis: 270px; grid-template-rows: 260px 48px 260px; }
+      .timeline-card { width: calc(100% - 20px); }
       .award { grid-template-columns: 58px minmax(0, 1fr) 20px; gap: 12px; }
       .award-title { font-size: 19px; }
     }
@@ -234,6 +359,7 @@
   <header class="topbar wrap">
     <a class="wordmark" href="#home" id="wordmark">YN.</a>
     <nav class="nav" aria-label="Main navigation">
+      <a href="#timeline">Timeline</a>
       <a href="#projects">Projects</a>
       <a href="#experience">Experience</a>
       <a href="#awards">Awards</a>
@@ -251,6 +377,18 @@
       <div class="portrait-wrap">
         <img class="portrait" id="headshot" alt="Temporary portrait placeholder; replace with your headshot">
         <p class="portrait-caption">Hello! Nice to meet you :)</p>
+      </div>
+    </section>
+
+    <section class="section timeline-section" id="timeline" aria-labelledby="timeline-title">
+      <div class="wrap">
+        <div class="section-head">
+          <div><p class="section-kicker">Milestones</p><h2 id="timeline-title">Girl in Tech Timeline</h2></div>
+          <p class="section-note">Scroll to follow the journey →</p>
+        </div>
+        <div class="timeline-scroll" role="region" aria-label="Girl in Tech timeline" tabindex="0">
+          <div class="timeline-track" id="timeline-track"></div>
+        </div>
       </div>
     </section>
 
@@ -303,7 +441,7 @@
       projects: [
         { title: "Canadian Informatics Workshop Silver Medalist", description: "Selected for the one-week CIW at UWaterloo as one of the top-performing girls on the CCC and earned a Silver Plaque at the contest there.", image: "images/silverplaque.jpeg", alt: "CIW Silver Plaque", link: "https://cemc.uwaterloo.ca/sites/default/files/documents/2026/2026CCCResults.pdf", label: "View results booklet" },
         { title: "CALICO - Global Silver Brick", description: "My team and I received Silver Brick as top 16% globally in the California Informatics Competiton.", image: "images/calicocertificate.png", alt: "CALICO Certificate", link: "https://calico.cs.berkeley.edu/", label: "Competition Details" },
-        { title: "Math Contest Honor Roll & School Medals", description: "Received Pascal & Canadian Intermediate Math Contest School Medal & Certificate of Distinction, and Galois Contest Honor Roll on the 2026 CEMC Results Booklet based on performance on the contest.", image: "images/mathmedal2.png", alt: "Results Booklet 2026", link: "https://cemc.uwaterloo.ca/sites/default/files/documents/2026/2026_FGH_Results.pdf", label: "Results Booklet 2026" }
+        { title: "Math Contest Honor Roll & School Medals", description: "Received Pascal & Canadian Intermediate Math Contest School Medal & Certificate of Distinction, and Galois Contest Honor Roll on the 2026 CEMC Results Booklet based on performance on the contest.", image: "images/schoolawards.png", alt: "Results Booklet 2026", link: "https://cemc.uwaterloo.ca/sites/default/files/documents/2026/2026_FGH_Results.pdf", label: "Results Booklet 2026" }
       ],
       experience: [
         { title: "Google Maps Finds the Quickest Route in Seconds: Crazy Computing Power or Clever Algorithms?", description: "A Medium article outlining the Dijkstra algorithm, a common graph search concept in competitive programming, and its real-world application in navigation tools like Google Maps.", image: "images/dijkstra.png", alt: "Article", link: "http://medium.com/@neetyapujara/google-maps-finds-quickest-route-in-seconds-crazy-computing-power-or-clever-algorithms-6a5c0119554a", label: "Medium Article" },
@@ -311,6 +449,20 @@
         { title: "Hackergal National Hackathon - Hack the Bias in AI Project", description: "Won the Hackergal National Hackathon with my project, Hack the Bias in AI, which interactively portrays the concept that AI is as fair as the data one feeds it.", image: "images/scratchproject.png", alt: "Hackergal Hackathon", link: "https://scratch.mit.edu/projects/1169007929", label: "Link to Project" },
         { title: "Ingredient Detective", description: "Computer vision application using a lightweight MobileNet machine learning model and TensorFlow.js to identify ingredients and use MealDB API to display recipes using that ingredient", image: "images/ingredientdetective.png", alt: "Ingredient Detective", link: "https://temporary-rushing-oxygen-4ic0vq4-5k6gwdvt7-anon-mu-topaz.vercel.app/", label: "Link to Project" },
         { title: "EthiScore - Technovation Mini-Hackathon Second Place", description: "My team and I won second place at the Technovation Mini Hackathon with our project EthiScore, an app for ethically concious customers, making it convenient for them to receive a 'score' for a product based on how ethically and sustainbly it is manufactured", image: "images/ethiscore.png", alt: "EthiScore Second Place", link: "https://youtu.be/9K6xbpxJDHw", label: "Pitching it at Technovation UWaterloo Mini-Hackathon" }
+      ],
+      timeline: [
+        { date: "2022 Summer", title: "CS50 Intro to Computer Science Course", description: "Completed Harvard's rigorous CS introductory track, culminating in a full-stack data project leveraging SQL and Flask." },
+        { date: "2023 Feb", title: "First CCC Junior Attempt", description: "Entered competitive programming by tackling the University of Waterloo's Canadian Computing Competition for the first time." },
+        { date: "2024 Feb", title: "Perfect Score on CCC Junior", description: "Achieved a 75/75 perfect algorithmic score on Waterloo’s Canadian Computing Competition (Junior Division)." },
+        { date: "2024 May", title: "Gauss Outstanding Achievement & Distinction Certificate", description: "Recognized with official distinction for elite mathematical score rankings in the Gauss contest framework." },
+        { date: "2024", title: "Only Girl in HS Coding Club", description: "Navigated systemic gender imbalance firsthand as the sole female developer in the high school computer science club ecosystem." },
+        { date: "2025 January", title: "Founder of Hackergal Club", description: "Formally launched an institutional Hackergal chapter to curate early coding experiences and mitigate the gender gap in local computing environments." },
+        { date: "2025 May", title: "Hackergal 14th National Hackathon Winner", description: "Won first place nationwide for “Hack the Bias in AI,” programming an algorithmic solution targeting systemic bias vectors in automated models." },
+        { date: "2025 September", title: "National Ambassador Appointments (Hackergal & CAGIS)", description: "Selected as a dual national brand ambassador for Hackergal and the Canadian Association for Girls in Science to lead regional STEM equity programming." },
+        { date: "2025 December", title: "TEDx Speaker (“Why Not You?”)", description: "Delivered a formal stage address at Ridley College centered on dismantling automated biases and structural empowerment in tech frameworks." },
+        { date: "2026 Feb", title: "CCC Senior Invitation to CIW & EGOI Team Canada Selection", description: "Ranked among the top computational minds in the Canadian Computing Competition Senior Division, receiving an elite invite to the Canadian Informatics Workshop and the European Girls' Olympiad in Informatics (EGOI) Team Canada Selection." },
+        { date: "2026 May", title: "CIW Residency & Founded Informatix Girls", description: "Completed the elite Waterloo informatics residency while simultaneously launching Informatix Girls as Founder & CEO to construct workshop ecosystems for girls." },
+        { date: "2026 August", title: "Ran 4-Week Informatix Girls Bootcamp", description: "Designed and executed a comprehensive, month-long programmatic bootcamp fostering baseline algorithmic thinking for 40+ girls across Canada." }
       ],
       awards: [
         { year: "20XX", title: "An award or recognition", description: "Add who recognized the work and what the honor meant. Keep it specific and personal.", link: "https://example.com" },
@@ -358,6 +510,20 @@
 
     renderCards(siteData.projects, "projects-rail");
     renderCards(siteData.experience, "experience-rail");
+    document.getElementById("timeline-track").innerHTML = siteData.timeline.map((event, index) => `
+      <article class="timeline-node">
+        <div class="timeline-card" id="timeline-event-${index + 1}">
+          <div class="timeline-image"><img src="#" alt="Image placeholder for ${event.title}"></div>
+          <div class="timeline-card-body">
+            <p class="timeline-date">${event.date}</p>
+            <h3 class="timeline-title">${event.title}</h3>
+            <p class="timeline-description">${event.description}</p>
+          </div>
+        </div>
+        <div class="timeline-connector">
+          <button class="timeline-dot" type="button" aria-label="Select ${event.date}: ${event.title}" aria-controls="timeline-event-${index + 1}" aria-pressed="false"></button>
+        </div>
+      </article>`).join("");
     document.getElementById("awards-list").innerHTML = siteData.awards.map((award) => `
       <a class="award" href="${safeHref(award.link)}" target="_blank" rel="noreferrer">
         <span class="award-year">${award.year}</span>
@@ -369,6 +535,16 @@
       button.addEventListener("click", () => {
         const rail = document.getElementById(button.dataset.scroll);
         rail.scrollBy({ left: Number(button.dataset.direction) * rail.clientWidth * 0.8, behavior: "smooth" });
+      });
+    });
+
+    document.querySelectorAll(".timeline-dot").forEach((dot) => {
+      dot.addEventListener("click", () => {
+        document.querySelectorAll(".timeline-dot").forEach((otherDot) => {
+          const selected = otherDot === dot;
+          otherDot.setAttribute("aria-pressed", String(selected));
+          otherDot.closest(".timeline-node").classList.toggle("is-selected", selected);
+        });
       });
     });
   </script>
