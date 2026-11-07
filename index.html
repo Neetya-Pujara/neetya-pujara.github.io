@@ -307,19 +307,32 @@
     .awards-list { border-top: 1px solid var(--line); }
     .award {
       display: grid;
-      grid-template-columns: 90px minmax(0, 1fr) 30px;
+      grid-template-columns: 160px minmax(0, 1fr);
       gap: 24px;
-      align-items: start;
+      align-items: center;
       padding: 23px 4px;
       border-bottom: 1px solid var(--line);
-      text-decoration: none;
-      transition: padding .2s, color .2s;
+      transition: padding .2s;
     }
-    .award:hover { padding-inline: 10px; color: var(--green); }
-    .award-year { padding-top: 4px; color: var(--coral); font-family: var(--mono); font-size: 11px; }
+    .award-image-slot {
+      display: block;
+      width: 100%;
+      height: 110px;
+      border: 1px dashed #c8cbc2;
+      background: #e9ebe5;
+    }
+    .award-image {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .award-content { min-width: 0; }
+    .award-year { margin: 0 0 9px; color: var(--coral); font-family: var(--mono); font-size: 11px; }
     .award-title { margin: 0; font-family: var(--serif); font-size: 22px; font-weight: 500; }
-    .award-description { margin: 7px 0 0; color: var(--muted); font-size: 13px; line-height: 1.65; }
-    .award-arrow { justify-self: end; font-size: 20px; line-height: 1; }
+    .award-title a { text-decoration: none; }
+    .award-title a:hover { color: var(--green); }
+    .award-arrow { margin-left: 7px; color: var(--green); font-family: var(--sans); font-size: 16px; }
     footer { display: flex; justify-content: space-between; gap: 20px; padding-block: 25px 32px; border-top: 1px solid var(--line); color: var(--muted); font-size: 11px; }
 
     @keyframes rise-in { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
@@ -339,7 +352,8 @@
       .rail { grid-auto-columns: minmax(250px, 82%); gap: 13px; }
       .timeline-node { flex-basis: 270px; grid-template-rows: 260px 48px 260px; }
       .timeline-card { width: calc(100% - 20px); }
-      .award { grid-template-columns: 58px minmax(0, 1fr) 20px; gap: 12px; }
+      .award { grid-template-columns: 92px minmax(0, 1fr); gap: 14px; padding-block: 18px; }
+      .award-image-slot { height: 82px; }
       .award-title { font-size: 19px; }
     }
     @media (max-width: 390px) {
@@ -361,7 +375,7 @@
       <a href="#timeline">Timeline</a>
       <a href="#projects">Projects</a>
       <a href="#experience">Experience</a>
-      <a href="#awards">Awards</a>
+      <a href="#awards">Awards &amp; Features</a>
     </nav>
   </header>
 
@@ -417,7 +431,7 @@
 
     <section class="section wrap" id="awards" aria-labelledby="awards-title">
       <div class="section-head">
-        <div><p class="section-kicker">A few meaningful moments</p><h2 id="awards-title">Awards &amp; recognition</h2></div>
+        <div><p class="section-kicker">A few meaningful moments</p><h2 id="awards-title">Awards &amp; Features</h2></div>
       </div>
       <div class="awards-list" id="awards-list"></div>
     </section>
@@ -444,7 +458,7 @@
       ],
       experience: [
         { title: "Google Maps Finds the Quickest Route in Seconds: Crazy Computing Power or Clever Algorithms?", description: "A Medium article outlining the Dijkstra algorithm, a common graph search concept in competitive programming, and its real-world application in navigation tools like Google Maps.", image: "images/dijkstra.png", alt: "Article", link: "http://medium.com/@neetyapujara/google-maps-finds-quickest-route-in-seconds-crazy-computing-power-or-clever-algorithms-6a5c0119554a", label: "Medium Article" },
-        { title: "N-News for Freelance Journalists", description: "Final project for CS50 : Introduction to Computer Science course by Harvard University; the project is a full-stack platform built using Python, Flask, SQL, HTML, and CSS.", image: "images/nnews.png", alt: "Video", link: "https://youtu.be/SJx0xNWRpjw", label: "Walk-Through" },
+        { title: "N-News for Freelance Journalists", description: "Final project for CS50 : Introduction to Computer Science course by Harvard University; the project is a full-stack platform built using Python, Flask, SQL, HTML, and CSS.", image: "images/nnews.jpeg", alt: "Video", link: "https://youtu.be/SJx0xNWRpjw", label: "Walk-Through" },
         { title: "LiftHub - Technovation Global Quarter Finalist", description: "Built and pitched a Thunkable app for the Technovation Global program with my team - our project's aim is to increase visiblity of minority-owned businesses by allowing only those businesses to sign up on our website, and allow customers who care to browse from such businesses!", image: "images/technovationpitch.png", alt: "Pitching app at Technovation Toronto", link: "https://youtu.be/2NYFWnQxQy4", label: "Technovation Toronto Pitch Event - LinkedIn" },
         { title: "Hackergal National Hackathon - Hack the Bias in AI Project", description: "Won the Hackergal National Hackathon with my project, Hack the Bias in AI, which interactively portrays the concept that AI is as fair as the data one feeds it.", image: "images/scratchproject.png", alt: "Hackergal Hackathon", link: "https://scratch.mit.edu/projects/1169007929", label: "Link to Project" },
         { title: "Ingredient Detective", description: "Computer vision application using a lightweight MobileNet machine learning model and TensorFlow.js to identify ingredients and use MealDB API to display recipes using that ingredient", image: "images/ingredientdetective.png", alt: "Ingredient Detective", link: "https://medium.com/@neetyapujara/exploring-image-classification-through-a-kitchen-problem-c2571141e05a", label: "Link to Project" },
@@ -465,8 +479,11 @@
         { date: "2026 August", title: "Ran 4-Week Informatix Girls Bootcamp", image: "images/informatiximpact.png", alt: "Informatix Girls Bootcamp", description: "Designed and executed a month-long August bootcamp with a team of 10+ executives for 40+ girls across Canada to strengthen problem-solving and Python foundations" }
       ],
       awards: [
-        { year: "20XX", title: "An award or recognition", description: "Add who recognized the work and what the honor meant. Keep it specific and personal.", link: "https://example.com" },
-        { year: "20XX", title: "A milestone worth remembering", description: "A grant, fellowship, publication, competition, or other moment you’d like to share.", link: "https://example.com" }
+        { date: "Jul 2024", title: "Recognition from Member of Parliament Newmarket-Aurora", image: "", link: "https://www.vanbynen.ca/newsletter/july-23rd-weekly-update/" },
+        { date: "Oct 2025", title: "Principal's List Honor (Top 10 Averages in School)", image: "" },
+        { date: "Nov 2025", title: "Newmarket Raymond Jay Twinney Memorial Youth Award", image: "", link: "https://www.newmarkettoday.ca/local-news/it-just-means-so-much-newmarket-recognizes-outstanding-citizens-with-awards-11542421" },
+        { date: "Oct 2026", title: "2x Highest Average in Math (Gr. 9 & 10)", image: "" },
+        { date: "Oct 2026", title: "Student of the Month (Compassion)", image: "", link: "https://www.instagram.com/ccstudentcouncil_/p/DfYI0oDxg5-/" }
       ]
     };
 
@@ -525,11 +542,15 @@
         </div>
       </article>`).join("");
     document.getElementById("awards-list").innerHTML = siteData.awards.map((award) => `
-      <a class="award" href="${safeHref(award.link)}" target="_blank" rel="noreferrer">
-        <span class="award-year">${award.year}</span>
-        <div><h3 class="award-title">${award.title}</h3><p class="award-description">${award.description}</p></div>
-        <span class="award-arrow" aria-hidden="true">↗</span>
-      </a>`).join("");
+      <article class="award">
+        <div class="award-image-slot">${award.image ? `<img class="award-image" src="${award.image}" alt="${award.title}" loading="lazy">` : ""}</div>
+        <div class="award-content">
+          <p class="award-year">${award.date}</p>
+          <h3 class="award-title">${award.link
+            ? `<a href="${safeHref(award.link)}" target="_blank" rel="noreferrer">${award.title}<span class="award-arrow" aria-hidden="true">↗</span></a>`
+            : award.title}</h3>
+        </div>
+      </article>`).join("");
 
     document.querySelectorAll("[data-scroll]").forEach((button) => {
       button.addEventListener("click", () => {
